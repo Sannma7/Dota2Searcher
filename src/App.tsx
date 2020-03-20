@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { itemFilter } from './servies/ItemFilter';
+import { heroFilter } from './servies/HeroFilter';
+import { SearchResults } from './components/SearchResults';
+import { SearchBar } from './components/SearchBar';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
+
+  const [filteredResult, setFilteredResult] = useState(itemFilter(""));
+
+  const handleFilterTextChange = (e: string) => {
+    setFilteredResult(itemFilter(e));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <body>
+      <SearchBar handleFilterTextChange={handleFilterTextChange} />
+      <SearchResults items={filteredResult} />
+    </body>
   );
-}
+};
 
 export default App;
