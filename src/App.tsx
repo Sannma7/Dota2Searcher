@@ -7,18 +7,50 @@ import { SearchBar } from './components/SearchBar';
 
 export const App: React.FC = () => {
 
-  const [filteredResult, setFilteredResult] = useState(itemFilter(""));
+  const [filteredItemResult, setFilteredItemResult] = useState(itemFilter(""));
+  const [filteredHeroResult, setFilteredHeroResult] = useState(heroFilter(""));
+  const [keyword, setKeyword] = useState("")
+  const [searchMode, setSearchMode] = useState("item");
+  let fliterResult;
 
-  const handleFilterTextChange = (e: string) => {
-    setFilteredResult(itemFilter(e));
+  const handleFilterTextChange = () => {
+    if (searchMode === "item") setFilteredItemResult(itemFilter(keyword));
+    if (searchMode === "hero") setFilteredHeroResult(heroFilter(keyword));
+    console.log(keyword);
   }
+
+  const handleSearchModeChange = () => {
+    if (searchMode === "item") {
+      setSearchMode("hero");
+      setFilteredHeroResult(heroFilter(keyword));
+    }
+    if (searchMode === "hero") {
+      setSearchMode("item");
+      setFilteredHeroResult(heroFilter(keyword));
+    }
+
+  }
+
+  if (searchMode === "item") {
+    fliterResult = <SearchResults results={filteredItemResult} mode={searchMode} />
+  }
+  if (searchMode === "hero") {
+    fliterResult = <SearchResults results={filteredHeroResult} mode={searchMode} />
+  }
+
 
   return (
     <body>
-      <SearchBar handleFilterTextChange={handleFilterTextChange} />
-      <SearchResults items={filteredResult} />
+      <SearchBar
+        handleFilterTextChange={handleFilterTextChange}
+        handleSearchModeChange={handleSearchModeChange}
+        keyword={keyword}
+        setKeyword={setKeyword}
+      />
+      {fliterResult}
     </body>
   );
+
 };
 
 export default App;

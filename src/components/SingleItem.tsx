@@ -11,6 +11,7 @@ export const SingleItem = (props: item) => {
             <td>{props.side_shop}</td>
             <td>{props.recipe}</td>
             <td><img src={props.url_image} alt = {props.name}/></td>
+            <td>{props.localized_name}</td>
         </tr>
     )
 };

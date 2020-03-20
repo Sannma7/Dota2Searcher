@@ -1,16 +1,13 @@
 import React from 'react';
-import { item } from '../types';
+import { hero } from '../types';
 
-export const SingleItem = (props: item) => {
+export const SingleHero = (props: hero) => {
     return (
         <tr>
             <td>{props.id}</td>
             <td>{props.name}</td>
-            <td>{props.cost}</td>
-            <td>{props.secret_shop}</td>
-            <td>{props.side_shop}</td>
-            <td>{props.recipe}</td>
-            <td><img src={props.url_image} alt = {props.name}/></td>
+            <td><img src={props.url_small_portrait} alt="small_portrait" /></td>
+            <td>{props.localized_name}</td>
         </tr>
     )
 };
